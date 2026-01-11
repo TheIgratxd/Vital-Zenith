@@ -1,0 +1,88 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // FUNCIONES AUXILIARES
+    // ============================================
+    
+    // Verifica si el usuario está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Verifica si el usuario es el dueño del documento
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Verifica si el usuario es admin
+    function isAdmin() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // ============================================
+    // COLECCIÓN: users
+    // ============================================
+    
+    match /users/{userId} {
+      // Permitir lectura solo al dueño o admin
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Permitir crear solo si es el propio usuario (durante registro)
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Permitir actualizar solo al dueño o admin
+      allow update: if isOwner(userId) || isAdmin();
+      
+      // No permitir eliminar (o solo admin)
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // COLECCIÓN: bracelets
+    // ============================================
+    
+    match /bracelets/{braceletId} {
+      // Permitir lectura solo al dueño del brazalete o admin
+      allow read: if isAuthenticated() && 
+                     (resource.data.user_id == request.auth.uid || 
+                      isAdmin() ||
+                      resource.data.status == 'available'); // Permitir leer si está disponible
+      
+      // Permitir crear solo a admins o el sistema (para registrar nuevos brazaletes)
+      allow create: if isAdmin();
+      
+      // Permitir actualizar:
+      // 1. Admin puede todo
+      // 2. El dueño puede actualizar last_data
+      // 3. Durante el emparejamiento (pair_code válido)
+      allow update: if isAdmin() ||
+                       (isAuthenticated() && resource.data.user_id == request.auth.uid) ||
+                       (isAuthenticated() && 
+                        resource.data.status == 'available' && 
+                        request.resource.data.pair_code == resource.data.pair_code);
+      
+      // Solo admin puede eliminar
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // COLECCIÓN: vital_signs (opcional, historial)
+    // ============================================
+    
+    match /vital_signs/{signId} {
+      // Solo el dueño del brazalete puede leer su historial
+      allow read: if isAuthenticated() && 
+                     resource.data.user_id == request.auth.uid;
+      
+      // Solo el sistema puede crear registros
+      allow create: if isAdmin();
+      
+      // No permitir actualizar ni eliminar
+      allow update, delete: if false;
+    }
+  }
+}

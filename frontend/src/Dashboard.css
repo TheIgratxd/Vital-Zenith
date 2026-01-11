@@ -1,0 +1,495 @@
+/* ==================== DASHBOARD CONTAINER ==================== */
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #764ba2 100%);
+  color: #fff;
+  padding-bottom: 40px;
+}
+
+/* ==================== HEADER ==================== */
+.dashboard-header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header-subtitle {
+  margin: 10px 0 0 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* ==================== MAIN CONTENT ==================== */
+.dashboard-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ==================== LOADING SPINNER ==================== */
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== ERROR CARD ==================== */
+.error-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 400px;
+  margin: 60px auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.error-card h2 {
+  margin-top: 0;
+  color: #e74c3c;
+}
+
+/* ==================== BRACELET STATUS SECTION ==================== */
+.bracelet-status-section {
+  margin-bottom: 40px;
+}
+
+/* No Bracelet Card */
+.no-bracelet-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 50px 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease;
+}
+
+.bracelet-icon-large {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.no-bracelet-card h2 {
+  margin: 0 0 15px 0;
+  font-size: 28px;
+  color: #667eea;
+}
+
+.no-bracelet-card p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 30px 0;
+  line-height: 1.6;
+}
+
+.pair-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.pair-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.pair-button:active {
+  transform: translateY(0);
+}
+
+/* Bracelet Info Card */
+.bracelet-info-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease;
+}
+
+.bracelet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.bracelet-icon-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.status-indicator.active {
+  background: #27ae60;
+  box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.status-indicator.inactive {
+  background: #95a5a6;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(39, 174, 96, 1);
+  }
+}
+
+.bracelet-id {
+  font-size: 18px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.unpair-button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.unpair-button:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+.mac-address,
+.last-update {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* ==================== VITAL SIGNS SECTION ==================== */
+.vital-signs-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  color: #fff;
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.vital-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* Vital Card */
+.vital-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.vital-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.vital-card.pulse::before {
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+.vital-card.spo2::before {
+  background: linear-gradient(90deg, #3498db, #2980b9);
+}
+
+.vital-card.temperature::before {
+  background: linear-gradient(90deg, #f39c12, #e67e22);
+}
+
+.vital-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.vital-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.vital-content h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+  font-weight: 600;
+}
+
+.vital-value {
+  font-size: 56px;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 15px;
+  line-height: 1;
+}
+
+.vital-unit {
+  font-size: 24px;
+  color: #7f8c8d;
+  margin-left: 8px;
+}
+
+.vital-status {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  width: 100%;
+}
+
+.status-normal {
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+}
+
+.status-warning {
+  color: #f39c12;
+  background: rgba(243, 156, 18, 0.1);
+}
+
+.status-abnormal {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.status-no-data {
+  color: #95a5a6;
+  background: rgba(149, 165, 166, 0.1);
+}
+
+/* ==================== INFO SECTION ==================== */
+.info-section {
+  margin-top: 40px;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.info-card h3 {
+  margin-top: 0;
+  color: #667eea;
+  font-size: 22px;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+}
+
+.info-card li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.info-card li:last-child {
+  border-bottom: none;
+}
+
+.info-card li::before {
+  content: "•";
+  color: #667eea;
+  font-weight: bold;
+  display: inline-block;
+  width: 20px;
+  margin-right: 10px;
+}
+
+/* ==================== MODAL ==================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 20px 15px;
+  }
+
+  .header-content h1 {
+    font-size: 28px;
+  }
+
+  .header-subtitle {
+    font-size: 14px;
+  }
+
+  .dashboard-main {
+    padding: 30px 15px;
+  }
+
+  .vital-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .vital-value {
+    font-size: 48px;
+  }
+
+  .no-bracelet-card {
+    padding: 40px 25px;
+  }
+
+  .bracelet-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pair-button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content h1 {
+    font-size: 24px;
+  }
+
+  .vital-card {
+    padding: 20px;
+  }
+
+  .vital-value {
+    font-size: 42px;
+  }
+
+  .vital-unit {
+    font-size: 20px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+}

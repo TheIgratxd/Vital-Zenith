@@ -1,0 +1,92 @@
+/* Contenedor principal del OTP */
+.otp-container {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Cada input individual */
+.otp-input {
+  width: 50px;
+  height: 60px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: #333;
+  caret-color: #4a90e2;
+}
+
+/* Estado focus */
+.otp-input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  transform: scale(1.05);
+}
+
+/* Input con valor */
+.otp-input:not(:placeholder-shown) {
+  border-color: #4caf50;
+  background-color: #f0f8ff;
+}
+
+/* Estado hover */
+.otp-input:hover {
+  border-color: #4a90e2;
+}
+
+/* Estado disabled */
+.otp-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Animación al escribir */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.otp-input:focus {
+  animation: pulse 0.3s ease;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .otp-input {
+    width: 40px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .otp-container {
+    gap: 8px;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .otp-input {
+    width: 35px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .otp-container {
+    gap: 6px;
+  }
+}
