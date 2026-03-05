@@ -173,7 +173,7 @@ function Login() {
                     <path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3V8M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 </div>
-                <h1 className="brand-title">Ixchel Medical</h1>
+                <h1 className="brand-title">Vital-Zenith</h1>
                 <p className="brand-subtitle">
                   Sistema de Monitoreo de Signos Vitales
                 </p>

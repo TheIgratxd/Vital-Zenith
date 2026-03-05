@@ -1,4 +1,4 @@
-import { db } from "../config/firebase";
+import { db, realtimeDb } from "../config/firebase";
 import { FieldValue } from "firebase-admin/firestore";
 
 export interface User {
@@ -54,16 +54,26 @@ class FirestoreService {
   // ============================================
 
   async getBraceletByCode(pairCode: string): Promise<Bracelet | null> {
+    // Buscar solo por pair_code (un solo filtro = no necesita índice compuesto)
     const snapshot = await db
       .collection("bracelets")
       .where("pair_code", "==", pairCode)
-      .where("status", "==", "available")
       .limit(1)
       .get();
 
+    console.log(`getBraceletByCode("${pairCode}") → ${snapshot.size} docs encontrados`);
+
     if (snapshot.empty) return null;
 
-    return snapshot.docs[0].data() as Bracelet;
+    const bracelet = snapshot.docs[0].data() as Bracelet;
+
+    // Verificar status en código (no en query)
+    if (bracelet.status !== "available") {
+      console.log(`Brazalete encontrado pero status="${bracelet.status}", no "available"`);
+      return null;
+    }
+
+    return bracelet;
   }
 
   async getBraceletById(braceletId: string): Promise<Bracelet | null> {
@@ -86,17 +96,23 @@ class FirestoreService {
         };
       }
 
-      // Actualizar brazalete
+      // Actualizar brazalete (se conserva pair_code para que el dashboard pueda leerlo)
       await db.collection("bracelets").doc(bracelet.bracelet_id).update({
         user_id: userId,
         status: "paired",
-        pair_code: FieldValue.delete(), // Eliminar código para que no se reutilice
       });
 
-      // Actualizar usuario
-      await db.collection("users").doc(userId).update({
+      // Actualizar usuario en Firestore (crea el doc si no existe)
+      await db.collection("users").doc(userId).set({
         bracelet_id: bracelet.bracelet_id,
+      }, { merge: true });
+
+      // Sincronizar con Realtime Database:
+      // pairCode como clave del brazalete + link en el perfil del usuario
+      await realtimeDb.ref(`users/${userId}`).update({
+        pairCode: bracelet.pair_code || bracelet.bracelet_id,
       });
+      await realtimeDb.ref(`bracelets/${bracelet.pair_code || bracelet.bracelet_id}/userId`).set(userId);
 
       return {
         success: true,
@@ -133,10 +149,14 @@ class FirestoreService {
         pair_code: this.generatePairCode(), // Generar nuevo código
       });
 
-      // Actualizar usuario
+      // Actualizar usuario en Firestore
       await db.collection("users").doc(userId).update({
         bracelet_id: null,
       });
+
+      // Limpiar Realtime Database
+      await realtimeDb.ref(`users/${userId}/pairCode`).remove();
+      await realtimeDb.ref(`bracelets/${braceletId}/userId`).remove();
 
       return {
         success: true,

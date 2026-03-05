@@ -1,27 +1,31 @@
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
-import { auth, db } from "./config/firebase.config";
+import { ref, onValue, off } from "firebase/database";
+import { auth, db, realtimeDb } from "./config/firebase.config";
 import { braceletService } from "./services/bracelet.service";
 import PairBracelet from "./components/PairBracelet";
 import "./Dashboard.css";
 
 interface BraceletData {
   bracelet_id: string;
+  pair_code?: string;
   mac_address?: string;
-  status: "active" | "inactive";
-  last_data?: {
-    pulse?: number;
-    spo2?: number;
-    temperature?: number;
-    timestamp?: any;
-  };
+  status: "active" | "inactive" | "available" | "paired";
+}
+
+interface Vitals {
+  heartRate?: number;
+  spo2?: number;
+  temperature?: number;
+  timestamp?: number;
 }
 
 function Dashboard() {
   const [userId, setUserId] = useState<string | null>(null);
   const [braceletId, setBraceletId] = useState<string | null>(null);
   const [braceletData, setBraceletData] = useState<BraceletData | null>(null);
+  const [vitals, setVitals] = useState<Vitals | null>(null);
   const [loading, setLoading] = useState(true);
   const [showPairModal, setShowPairModal] = useState(false);
 
@@ -86,6 +90,26 @@ function Dashboard() {
 
     return () => unsubscribe();
   }, [braceletId]);
+
+  // RTDB vitals listener — using pair_code from bracelet Firestore doc
+  useEffect(() => {
+    const pairCode = braceletData?.pair_code;
+    if (!pairCode) {
+      setVitals(null);
+      return;
+    }
+
+    const vitalsRef = ref(realtimeDb, `bracelets/${pairCode}/currentData`);
+    onValue(vitalsRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setVitals(snapshot.val() as Vitals);
+      } else {
+        setVitals(null);
+      }
+    });
+
+    return () => off(vitalsRef);
+  }, [braceletData?.pair_code]);
 
   const handlePairSuccess = () => {
     setShowPairModal(false);
@@ -153,7 +177,7 @@ function Dashboard() {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-content">
-          <h1>Dashboard Ixchel Medical</h1>
+          <h1>Dashboard Vital-Zenith</h1>
           <p className="header-subtitle">
             Monitoreo de signos vitales en tiempo real
           </p>
@@ -198,14 +222,14 @@ function Dashboard() {
               )}
               <p className="last-update">
                 Última actualización:{" "}
-                {formatTimestamp(braceletData?.last_data?.timestamp)}
+                {formatTimestamp(vitals?.timestamp)}
               </p>
             </div>
           )}
         </section>
 
         {/* Vital Signs Section */}
-        {braceletId && braceletData && (
+        {braceletId && (
           <section className="vital-signs-section">
             <h2 className="section-title">Signos Vitales</h2>
             <div className="vital-cards-grid">
@@ -215,13 +239,13 @@ function Dashboard() {
                 <div className="vital-content">
                   <h3>Frecuencia Cardíaca</h3>
                   <div className="vital-value">
-                    {braceletData.last_data?.pulse || "--"}
+                    {vitals?.heartRate || "--"}
                     <span className="vital-unit">bpm</span>
                   </div>
                   <div className="vital-status">
-                    {braceletData.last_data?.pulse ? (
-                      braceletData.last_data.pulse >= 60 &&
-                      braceletData.last_data.pulse <= 100 ? (
+                    {vitals?.heartRate ? (
+                      vitals.heartRate >= 60 &&
+                      vitals.heartRate <= 100 ? (
                         <span className="status-normal">✓ Normal</span>
                       ) : (
                         <span className="status-abnormal">⚠ Anormal</span>
@@ -239,14 +263,14 @@ function Dashboard() {
                 <div className="vital-content">
                   <h3>Saturación de Oxígeno</h3>
                   <div className="vital-value">
-                    {braceletData.last_data?.spo2 || "--"}
+                    {vitals?.spo2 || "--"}
                     <span className="vital-unit">%</span>
                   </div>
                   <div className="vital-status">
-                    {braceletData.last_data?.spo2 ? (
-                      braceletData.last_data.spo2 >= 95 ? (
+                    {vitals?.spo2 ? (
+                      vitals.spo2 >= 95 ? (
                         <span className="status-normal">✓ Normal</span>
-                      ) : braceletData.last_data.spo2 >= 90 ? (
+                      ) : vitals.spo2 >= 90 ? (
                         <span className="status-warning">⚠ Bajo</span>
                       ) : (
                         <span className="status-abnormal">⚠ Crítico</span>
@@ -264,13 +288,13 @@ function Dashboard() {
                 <div className="vital-content">
                   <h3>Temperatura Corporal</h3>
                   <div className="vital-value">
-                    {braceletData.last_data?.temperature || "--"}
+                    {vitals?.temperature || "--"}
                     <span className="vital-unit">°C</span>
                   </div>
                   <div className="vital-status">
-                    {braceletData.last_data?.temperature ? (
-                      braceletData.last_data.temperature >= 36.1 &&
-                      braceletData.last_data.temperature <= 37.2 ? (
+                    {vitals?.temperature ? (
+                      vitals.temperature >= 36.1 &&
+                      vitals.temperature <= 37.2 ? (
                         <span className="status-normal">✓ Normal</span>
                       ) : (
                         <span className="status-abnormal">⚠ Anormal</span>

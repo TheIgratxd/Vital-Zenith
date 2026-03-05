@@ -12,6 +12,7 @@ export interface VitalSigns {
 
 export interface BraceletData {
   bracelet_id: string;
+  pair_code?: string;
   status: "available" | "paired";
   last_data: VitalSigns;
 }

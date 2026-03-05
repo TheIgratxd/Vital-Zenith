@@ -23,6 +23,7 @@ export const pairBracelet = async (req: AuthRequest, res: Response) => {
     if (result.success) {
       return res.status(200).json(result);
     } else {
+      console.error("pairBracelet falló:", result.message);
       return res.status(400).json(result);
     }
   } catch (error) {
@@ -83,6 +84,7 @@ export const getBraceletData = async (req: AuthRequest, res: Response) => {
 
     return res.status(200).json({
       bracelet_id: bracelet.bracelet_id,
+      pair_code: bracelet.pair_code,
       status: bracelet.status,
       last_data: bracelet.last_data,
     });
@@ -116,6 +118,28 @@ export const updateVitalSigns = async (req: AuthRequest, res: Response) => {
     return res.status(200).json({ message: "Signos vitales actualizados" });
   } catch (error) {
     console.error("Error al actualizar signos vitales:", error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+// Registrar un brazalete nuevo (Admin / setup inicial del ESP32)
+export const registerBracelet = async (req: AuthRequest, res: Response) => {
+  try {
+    const { mac_address } = req.body;
+
+    if (!mac_address) {
+      return res.status(400).json({ error: "mac_address es requerido" });
+    }
+
+    const pairCode = await firestoreService.createBracelet(mac_address);
+
+    return res.status(201).json({
+      success: true,
+      message: "Brazalete registrado",
+      pair_code: pairCode,
+    });
+  } catch (error) {
+    console.error("Error al registrar brazalete:", error);
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };

@@ -1,116 +1,154 @@
-/* ==================== DASHBOARD CONTAINER ==================== */
+/* ==================== DASHBOARD ==================== */
 .dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffffff 0%, #764ba2 100%);
-  color: #fff;
-  padding-bottom: 40px;
+  background: #f4f5f7;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ==================== HEADER ==================== */
 .dashboard-header {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 30px 20px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.header-content h1 {
-  margin: 0;
-  font-size: 36px;
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-brand-icon {
+  width: 22px;
+  height: 22px;
+  color: #667eea;
+}
+
+.header-brand h1 {
+  font-size: 17px;
   font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #111827;
+  margin: 0;
+  letter-spacing: -0.3px;
 }
 
 .header-subtitle {
-  margin: 10px 0 0 0;
-  font-size: 16px;
-  opacity: 0.9;
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+  display: none;
 }
 
 /* ==================== MAIN CONTENT ==================== */
 .dashboard-main {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 32px 24px;
 }
 
-/* ==================== LOADING SPINNER ==================== */
+/* ==================== LOADING ==================== */
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f4f5f7;
+}
+
 .loading-spinner {
-  width: 60px;
-  height: 60px;
-  border: 6px solid rgba(255, 255, 255, 0.2);
-  border-top-color: #fff;
+  width: 32px;
+  height: 32px;
+  border: 2.5px solid #e5e7eb;
+  border-top-color: #667eea;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 20px;
+  animation: spin 0.75s linear infinite;
+  margin-bottom: 12px;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 14px;
+  color: #9ca3af;
 }
 
 /* ==================== ERROR CARD ==================== */
 .error-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #333;
-  padding: 40px;
-  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 48px 40px;
   text-align: center;
   max-width: 400px;
-  margin: 60px auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  margin: 80px auto;
+}
+
+.error-icon {
+  width: 40px;
+  height: 40px;
+  color: #ef4444;
+  margin: 0 auto 16px;
 }
 
 .error-card h2 {
-  margin-top: 0;
-  color: #e74c3c;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px;
 }
 
-/* ==================== BRACELET STATUS SECTION ==================== */
+.error-card p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ==================== BRACELET STATUS ==================== */
 .bracelet-status-section {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
-/* No Bracelet Card */
+/* No Bracelet */
 .no-bracelet-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #333;
-  padding: 50px 40px;
-  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 56px 40px;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.5s ease;
 }
 
-.bracelet-icon-large {
-  font-size: 80px;
-  margin-bottom: 20px;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+.no-bracelet-icon {
+  width: 48px;
+  height: 48px;
+  color: #d1d5db;
+  margin: 0 auto 20px;
 }
 
 .no-bracelet-card h2 {
-  margin: 0 0 15px 0;
-  font-size: 28px;
-  color: #667eea;
+  font-size: 19px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px;
 }
 
 .no-bracelet-card p {
-  font-size: 16px;
-  color: #666;
-  margin: 0 0 30px 0;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 28px;
+  max-width: 360px;
+  margin-inline: auto;
   line-height: 1.6;
 }
 
@@ -118,18 +156,19 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 16px 40px;
-  font-size: 18px;
+  padding: 11px 30px;
+  font-size: 14px;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  font-family: inherit;
 }
 
 .pair-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .pair-button:active {
@@ -138,358 +177,338 @@
 
 /* Bracelet Info Card */
 .bracelet-info-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #333;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.5s ease;
-}
-
-.bracelet-header {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px 24px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 16px;
 }
 
-.bracelet-icon-status {
+.bracelet-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
-.status-indicator {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  position: relative;
+.bracelet-device-icon {
+  width: 18px;
+  height: 18px;
+  color: #9ca3af;
 }
 
-.status-indicator.active {
-  background: #27ae60;
-  box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.status-indicator.inactive {
-  background: #95a5a6;
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(39, 174, 96, 1);
-  }
+.bracelet-info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .bracelet-id {
-  font-size: 18px;
-  font-weight: 600;
-  color: #667eea;
-}
-
-.unpair-button {
-  background: #e74c3c;
-  color: white;
-  border: none;
-  padding: 10px 24px;
   font-size: 14px;
   font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.unpair-button:hover {
-  background: #c0392b;
-  transform: translateY(-2px);
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d1d5db;
+  display: inline-block;
+}
+
+.status-dot.paired,
+.status-dot.active {
+  background: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+}
+
+.status-dot.available,
+.status-dot.inactive {
+  background: #d1d5db;
+}
+
+.bracelet-meta {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .mac-address,
 .last-update {
-  margin: 8px 0;
-  font-size: 14px;
-  color: #666;
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
 }
 
-/* ==================== VITAL SIGNS SECTION ==================== */
+.unpair-button {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.unpair-button:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+
+/* ==================== VITAL SIGNS ==================== */
 .vital-signs-section {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .section-title {
-  color: #fff;
-  font-size: 28px;
-  margin-bottom: 25px;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
 }
 
 .vital-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
 }
 
 /* Vital Card */
 .vital-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  animation: fadeIn 0.5s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.vital-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-}
-
-.vital-card.pulse::before {
-  background: linear-gradient(90deg, #e74c3c, #c0392b);
-}
-
-.vital-card.spo2::before {
-  background: linear-gradient(90deg, #3498db, #2980b9);
-}
-
-.vital-card.temperature::before {
-  background: linear-gradient(90deg, #f39c12, #e67e22);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 22px;
+  transition: box-shadow 0.2s;
 }
 
 .vital-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-.vital-icon {
-  font-size: 48px;
-  margin-bottom: 15px;
-  text-align: center;
+.vital-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
 }
 
-.vital-content h3 {
-  margin: 0 0 20px 0;
-  font-size: 18px;
-  color: #666;
-  text-align: center;
+.vital-card-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.vital-card-icon.pulse { color: #667eea; }
+.vital-card-icon.spo2  { color: #6366f1; }
+.vital-card-icon.temp  { color: #8b5cf6; }
+
+.vital-card-header h3 {
+  font-size: 11px;
   font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin: 0;
+}
+
+.vital-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 .vital-value {
-  font-size: 56px;
+  font-size: 44px;
   font-weight: 700;
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 15px;
+  color: #111827;
   line-height: 1;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
 }
 
 .vital-unit {
-  font-size: 24px;
-  color: #7f8c8d;
-  margin-left: 8px;
+  font-size: 15px;
+  color: #9ca3af;
+  font-weight: 500;
 }
 
-.vital-status {
-  text-align: center;
-  font-size: 16px;
+.vital-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
   font-weight: 600;
-  padding: 8px 16px;
+  padding: 3px 9px;
   border-radius: 20px;
-  display: inline-block;
-  width: 100%;
+  margin-bottom: 16px;
 }
 
-.status-normal {
-  color: #27ae60;
-  background: rgba(39, 174, 96, 0.1);
+.vital-status-badge .badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
 }
 
-.status-warning {
-  color: #f39c12;
-  background: rgba(243, 156, 18, 0.1);
-}
+.vital-status-badge.normal  { color: #059669; background: #ecfdf5; }
+.vital-status-badge.normal .badge-dot { background: #059669; }
 
-.status-abnormal {
-  color: #e74c3c;
-  background: rgba(231, 76, 60, 0.1);
-}
+.vital-status-badge.warning { color: #d97706; background: #fffbeb; }
+.vital-status-badge.warning .badge-dot { background: #d97706; }
 
-.status-no-data {
-  color: #95a5a6;
-  background: rgba(149, 165, 166, 0.1);
+.vital-status-badge.abnormal { color: #dc2626; background: #fef2f2; }
+.vital-status-badge.abnormal .badge-dot { background: #dc2626; }
+
+.vital-status-badge.no-data { color: #9ca3af; background: #f9fafb; }
+.vital-status-badge.no-data .badge-dot { background: #d1d5db; }
+
+/* Chart inside card */
+.vital-chart {
+  height: 72px;
+  margin-top: 4px;
 }
 
 /* ==================== INFO SECTION ==================== */
 .info-section {
-  margin-top: 40px;
+  margin-top: 8px;
 }
 
 .info-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #333;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px 24px;
 }
 
-.info-card h3 {
-  margin-top: 0;
+.info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.info-card-icon {
+  width: 15px;
+  height: 15px;
   color: #667eea;
-  font-size: 22px;
 }
 
-.info-card ul {
+.info-card-header h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.info-list {
   list-style: none;
   padding: 0;
-  margin: 20px 0 0 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
 }
 
-.info-card li {
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  font-size: 15px;
-  color: #555;
-  line-height: 1.6;
+.info-list li {
+  font-size: 13px;
+  color: #6b7280;
+  padding: 9px 0;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
 }
 
-.info-card li:last-child {
+.info-list li:nth-last-child(-n+2) {
   border-bottom: none;
 }
 
-.info-card li::before {
-  content: "•";
-  color: #667eea;
-  font-weight: bold;
-  display: inline-block;
-  width: 20px;
-  margin-right: 10px;
+.info-dot {
+  width: 4px;
+  height: 4px;
+  background: #667eea;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
 }
 
 /* ==================== MODAL ==================== */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.2s ease;
 }
 
 .modal-content {
-  max-width: 500px;
+  max-width: 480px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
-  animation: slideIn 0.3s ease;
+  animation: slideIn 0.22s ease;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0);     }
 }
 
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
-  .dashboard-header {
-    padding: 20px 15px;
-  }
-
-  .header-content h1 {
-    font-size: 28px;
-  }
-
-  .header-subtitle {
-    font-size: 14px;
-  }
-
-  .dashboard-main {
-    padding: 30px 15px;
-  }
-
+@media (max-width: 900px) {
   .vital-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .vital-value {
-    font-size: 48px;
-  }
-
-  .no-bracelet-card {
-    padding: 40px 25px;
-  }
-
-  .bracelet-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .pair-button {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 16px;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
+@media (max-width: 768px) {
+  .dashboard-header { padding: 0 16px; }
+  .dashboard-main   { padding: 20px 16px; }
+  .vital-cards-grid { grid-template-columns: 1fr; }
+  .info-list        { grid-template-columns: 1fr; }
+  .info-list li:nth-last-child(-n+2) { border-bottom: 1px solid #f3f4f6; }
+  .info-list li:last-child { border-bottom: none; }
+  .bracelet-info-card { flex-direction: column; align-items: flex-start; }
+  .pair-button { width: 100%; }
+}
+
 @media (max-width: 480px) {
-  .header-content h1 {
-    font-size: 24px;
-  }
-
-  .vital-card {
-    padding: 20px;
-  }
-
-  .vital-value {
-    font-size: 42px;
-  }
-
-  .vital-unit {
-    font-size: 20px;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
-
-  .modal-content {
-    width: 95%;
-  }
+  .vital-value { font-size: 36px; }
+  .header-brand h1 { font-size: 15px; }
+  .no-bracelet-card { padding: 40px 24px; }
 }

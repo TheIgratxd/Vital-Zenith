@@ -1,0 +1,211 @@
+.chart-container {
+  background: #2d3142;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: white;
+}
+
+.chart-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+}
+
+.chart-subtitle {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-top: 0.25rem;
+}
+
+.chart-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chart-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #4b5563;
+  background: transparent;
+  color: #9ca3af;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.chart-button:hover {
+  background: #374151;
+  color: white;
+}
+
+.chart-button.active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: white;
+}
+
+.line-chart {
+  width: 100%;
+  height: 250px;
+  position: relative;
+}
+
+.line-chart-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.line-chart-path {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line-chart-area {
+  opacity: 0.1;
+}
+
+.line-chart-grid {
+  stroke: #374151;
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.line-chart-axis {
+  stroke: #4b5563;
+  stroke-width: 1;
+}
+
+.line-chart-label {
+  fill: #9ca3af;
+  font-size: 12px;
+}
+
+.bar-chart {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 1rem 0;
+}
+
+.bar-chart-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bar-chart-bar {
+  width: 100%;
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-radius: 4px 4px 0 0;
+  min-height: 4px;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.bar-chart-bar:hover {
+  opacity: 0.8;
+  transform: scaleY(1.02);
+}
+
+.bar-chart-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+}
+
+.chart-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  color: #ef4444;
+}
+
+.chart-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+/* Mini widget cards */
+.widget-card {
+  background: #2d3142;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.widget-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.widget-icon.health {
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+}
+
+.widget-icon.weather {
+  background: linear-gradient(135deg, #10b981 0%, #22d3ee 100%);
+}
+
+.widget-content {
+  flex: 1;
+}
+
+.widget-title {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
+}
+
+.widget-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #374151;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

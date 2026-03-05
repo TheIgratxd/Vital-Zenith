@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
 import braceletRoutes from "./routes/bracelet.routes";
+import vitalsRoutes from "./routes/vitals.routes";
 
 // Cargar variables de entorno
 dotenv.config();
@@ -13,7 +14,10 @@ const PORT = process.env.PORT || 3000;
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173", // Ajusta esto a la URL de tu frontend
+    origin: [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+    ],
     credentials: true,
   })
 );
@@ -23,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use("/api/auth", authRoutes);
 app.use("/api/bracelet", braceletRoutes);
+app.use("/api/vitals", vitalsRoutes);
 
 // Ruta de prueba
 app.get("/api/health", (req: Request, res: Response) => {
